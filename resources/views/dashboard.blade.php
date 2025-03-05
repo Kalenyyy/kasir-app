@@ -19,7 +19,7 @@
                                 Total User
                             </div>
                             <div class="">
-                                0
+                                {{ $users_count }}
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                                 Stock Product
                             </div>
                             <div class="">
-                                0
+                                {{ number_format($products_count, 0, ',', '.') }}
                             </div>
                         </div>
                     </div>

@@ -20,9 +20,9 @@ class LoginController extends Controller
         $user = $request->only(['email', 'password']);
 
         if (Auth::attempt($user)) {
-            return redirect()->route('dashboard')->with('Success', 'Selamat Datang ' . Auth::user()->name);
+            return response()->json(['success' => true, 'message' => 'Selamat Datang ' . Auth::user()->name]);
         } else {
-            return redirect()->back()->with('failed', 'Username dan Password tidak sesuai. Silahkan coba lagi');
+            return response()->json(['success' => false, 'message' => 'Username atau Password tidak sesuai. Silahkan coba lagi']);
         }
     }
 

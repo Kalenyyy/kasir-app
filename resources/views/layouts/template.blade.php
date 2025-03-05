@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('image/logo.png') }}">
     <title>Kasir App</title>
     <script src="https://kit.fontawesome.com/1464b01d02.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -29,10 +30,10 @@
                 <!-- Container untuk gambar avatar dan dropdown -->
                 <div class="flex items-center">
                     <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
-                        class="flex items-center text-sm pe-1 font-medium rounded-full hover:text-[#3F4151] md:me-0 focus:ring-4 focus:ring-[#3F4151]  text-black"
+                        class="flex items-center text-sm pe-1 font-medium rounded-full hover:text-[#3F4151] md:me-0 focus:ring-4 focus:ring-[#3F4151] text-black"
                         type="button">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 me-2 rounded-full" src="" alt="user photo">
+                        <i class="fa-solid fa-user text-lg me-2" style="color: #000000;"></i>
                         {{ Auth::user()->name }}
                         <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 10 6">
@@ -40,6 +41,7 @@
                                 d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
+
 
                     <!-- Dropdown menu -->
                     <div id="dropdownAvatarName"
@@ -99,31 +101,66 @@
         <div class="max hidden text-white mt-20 flex-col space-y-2 w-full h-[calc(100vh)]">
             <a href="{{ route('dashboard') }}">
                 <div
-                    class="hover:ml-4 w-full text-white  bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                    class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
                     <i class="fa-solid fa-house-chimney" style="color: #ffffff;"></i>
                     <span>Home</span>
                 </div>
             </a>
             @if (Auth::user()->role == 'Admin')
-                <a href="{{ route('users.index') }}">
+                <a href="{{ route('products.index') }}">
                     <div
-                        class="hover:ml-4 w-full text-white  bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
-                        <i class="fa-solid fa-users" style="color: #ffffff;"></i>
+                        class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                        <i class="fa-solid fa-warehouse" style="color: #ffffff;"></i>
                         <span>Stock Products</span>
                     </div>
                 </a>
                 <a href="{{ route('users.index') }}">
                     <div
-                        class="hover:ml-4 w-full text-white  bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
-                        <i class="fa-solid fa-users" style="color: #ffffff;"></i>
-                        <span>Data Penjualan</span>
+                        class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                        <i class="fa-solid fa-cart-plus" style="color: #ffffff;"></i>
+                        <span>Data Pembelian</span>
                     </div>
                 </a>
                 <a href="{{ route('users.index') }}">
                     <div
-                        class="hover:ml-4 w-full text-white  bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                        class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
                         <i class="fa-solid fa-users" style="color: #ffffff;"></i>
                         <span>User</span>
+                    </div>
+                </a>
+
+                <div class="relative">
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                        class="w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full flex flex-row items-center gap-x-3">
+                        <i class="fa-solid fa-folder-open" style="color: #ffffff;"></i>
+                        <span>Data Master</span>
+                        <i id="dropdownArrow"
+                            class="fa-solid fa-chevron-down ml-auto transition-transform duration-300"></i>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown"
+                        class="z-10 hidden bg-[#3F4151] rounded-lg shadow-sm w-full absolute top-full left-9">
+                        <ul class="py-2 text-sm text-white">
+                            <li>
+                                <a href="{{ route('category.index') }}"
+                                    class="block px-8 py-2 hover:bg-gray-600">Category Product</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            @elseif (Auth::user()->role == 'Kasir')
+                <a href="{{ route('products.index') }}">
+                    <div
+                        class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                        <i class="fa-solid fa-warehouse" style="color: #ffffff;"></i>
+                        <span>Stock Products</span>
+                    </div>
+                </a>
+                <a href="{{ route('orders.index') }}">
+                    <div
+                        class="hover:ml-4 w-full text-white bg-[#3F4151] p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center gap-x-3">
+                        <i class="fa-solid fa-cart-plus" style="color: #ffffff;"></i>
+                        <span>Data Pembelian</span>
                     </div>
                 </a>
             @endif
@@ -199,7 +236,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownDefaultButton');
+            const dropdownMenu = document.getElementById('dropdown');
+            const dropdownArrow = document.getElementById('dropdownArrow');
+
+            dropdownButton.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('hidden');
+                dropdownArrow.classList.toggle('rotate-90');
+            });
+        });
+    </script>
 
     <script>
         const sidebar = document.querySelector("aside");
