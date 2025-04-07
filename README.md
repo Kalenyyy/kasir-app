@@ -17,7 +17,7 @@ Kasir App adalah aplikasi point of sale (POS) yang dirancang untuk membantu bisn
 
 1. Clone repository ini:
    ```sh
-   git clone [https://github.com/username/kasir-app.git](https://github.com/Kalenyyy/kasir-app)
+   git clone (https://github.com/Kalenyyy/kasir-app)
    ```
 2. Masuk ke direktori proyek:
    ```sh
